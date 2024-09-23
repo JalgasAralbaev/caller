@@ -7,16 +7,16 @@ api_secret = '6058e62a617695dc0f25'
 z_api = api.ZadarmaAPI(key=api_key, secret=api_secret)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/webhook')
 def get_webhook():
-    if request.method == 'POST':
-        data = request.json
+    data = request.json
 
-        phone_number = data['lead']['customer']['phone_number']
-        return jsonify({
-            'status': 'success',
-            'phone_number': phone_number
-        }), 200
+    phone_number = data['lead']['customer']['phone_number']
+    return jsonify({
+        'status': 'success',
+        'phone_number': phone_number
+    }), 200
+
     # from_number = '13239436353'
     # to_number = '14693939998'
     #
