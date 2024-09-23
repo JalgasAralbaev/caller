@@ -9,28 +9,29 @@ z_api = api.ZadarmaAPI(key=api_key, secret=api_secret)
 
 @app.route('/webhook', methods=['POST'])
 def get_webhook():
-    if request.method == 'POST':
-        data = request.json
+    # if request.method == 'POST':
+    #     data = request.json
+    #
+    #     phone_number = data['lead']['customer']['phone_number']
+    #
+    #     from_number = '13239436353'
+    #     to_number = f"1{phone_number}"
+    #
+    #     try:
+    #         response = z_api.call('/v1/request/callback/', {
+    #             'from': from_number,
+    #             'to': to_number,
+    #             'predicted': True
+    #         })
+    #
+    #         print(response)
+    #
+    #     except Exception as e:
+    #         print(f'Error: {e}')
 
-        phone_number = data['lead']['customer']['phone_number']
-        return jsonify({
-            'status': 'success',
-            'phone_number': phone_number
-        }), 200
-    # from_number = '13239436353'
-    # to_number = '14693939998'
-    #
-    # try:
-    #     response = z_api.call('/v1/request/callback/', {
-    #         'from': from_number,
-    #         'to': to_number,
-    #         'predicted': True
-    #     })
-    #
-    #     print(response)
-    #
-    # except Exception as e:
-    #     print(f'Error: {e}')
+    return jsonify({
+        'status': 'success',
+    }), 200
 
 
 if __name__ == '__main__':
