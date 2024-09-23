@@ -1,3 +1,6 @@
+import json
+
+import requests
 from flask import Flask, request, jsonify
 from zadarma import api
 
@@ -5,6 +8,23 @@ app = Flask(__name__)
 api_key = '3cc11c71f64e67825f44'
 api_secret = '6058e62a617695dc0f25'
 z_api = api.ZadarmaAPI(key=api_key, secret=api_secret)
+
+TELEGRAM_BOT_TOKEN = '7612310969:AAE_7B1EoAp5ovBftV9uNboQlYI2eMN3T7Y'
+CHAT_IDS = ['1128232668', '1214180501']
+
+
+def send_telegram_message(message, chat_ids):
+    url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
+    for chat_id in chat_ids:
+        payload = {
+            'chat_id': chat_id,
+            'text': message
+        }
+        response = requests.post(url, json=payload)
+        if response.status_code != 200:
+            print(f"Ошибка при отправке в чат {chat_id}: {response.status_code} - {response.text}")
+        else:
+            print(f"Сообщение успешно отправлено в чат {chat_id}")
 
 
 @app.route('/webhook', methods=['POST'])
@@ -24,6 +44,8 @@ def get_webhook():
                 'to': to_number,
             })
             res = response
+            message = f"Новые данные:\n{json.dumps(data, indent=4)}"
+            send_telegram_message(message, CHAT_IDS)
 
         except Exception as e:
             print(f'Error: {e}')
