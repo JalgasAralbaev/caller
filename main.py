@@ -42,6 +42,7 @@ def get_webhook():
             response = z_api.call('/v1/request/callback/', {
                 'from': from_number,
                 'to': to_number,
+                'sip': 582947
             })
             res = response
             message = f"Новые данные:\n{json.dumps(data, indent=4)}"
