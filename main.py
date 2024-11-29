@@ -30,28 +30,32 @@ def send_telegram_message(message, chat_ids):
 @app.route('/webhook', methods=['POST'])
 def get_webhook():
     res = ''
-    if request.method == 'POST':
-        data = request.json
+    data = request.json  # Получаем данные из запроса
+    message = json.dumps(data, indent=4, ensure_ascii=False)  # Форматируем данные в JSON-строку
+    send_telegram_message(message, CHAT_IDS)  # Отправляем сообщение в Telegram
+    return 'OK', 200  # Возвращаем успешный ответ
+    # if request.method == 'POST':
+    #     data = request.json
 
-        phone_number = data['lead']['customer']['phone_number']
+    #     phone_number = data['lead']['customer']['phone_number']
 
-        from_number = '14693939998'
-        to_number = f"1{phone_number}"
+    #     from_number = '14693939998'
+    #     to_number = f"1{phone_number}"
 
-        try:
-            response = z_api.call('/v1/request/callback/', {
-                'from': from_number,
-                'to': to_number,
-                'sip': 582947
-            })
-            res = response
-            message = f"Новые данные:\n{json.dumps(data, indent=4)}"
-            send_telegram_message(message, CHAT_IDS)
+    #     try:
+    #         response = z_api.call('/v1/request/callback/', {
+    #             'from': from_number,
+    #             'to': to_number,
+    #             'sip': 582947
+    #         })
+    #         res = response
+    #         message = f"Новые данные:\n{json.dumps(data, indent=4)}"
+    #         send_telegram_message(message, CHAT_IDS)
 
-        except Exception as e:
-            print(f'Error: {e}')
+    #     except Exception as e:
+    #         print(f'Error: {e}')
 
-        return res, 200
+    #     return res, 200
 
 
 if __name__ == '__main__':
