@@ -27,7 +27,7 @@ def send_telegram_message(message, chat_ids):
             print(f"Сообщение успешно отправлено в чат {chat_id}")
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['POST'])
 def get_webhook():
     res = ''
     data = request.json  # Получаем данные из запроса
