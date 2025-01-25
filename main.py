@@ -26,14 +26,31 @@ def send_telegram_message(message, chat_ids):
         else:
             print(f"Сообщение успешно отправлено в чат {chat_id}")
 
-
 @app.route('/', methods=['POST'])
 def get_webhook():
-    res = ''
-    data = request.json  # Получаем данные из запроса
-    message = json.dumps(data, indent=4, ensure_ascii=False)  # Форматируем данные в JSON-строку
-    send_telegram_message(message, CHAT_IDS)  # Отправляем сообщение в Telegram
-    return 'OK', 200  # Возвращаем успешный ответ
+    try:
+        data = request.json  # Получаем данные из запроса
+        if not data:
+            return jsonify({"error": "Empty JSON received"}), 400
+        
+        # Форматируем данные в строку JSON
+        message = json.dumps(data, indent=4, ensure_ascii=False)
+        
+        # Отправляем сообщение в Telegram
+        send_telegram_message(message, CHAT_IDS)
+        
+        return jsonify({"status": "success"}), 200
+    except Exception as e:
+        print(f"Ошибка: {e}")
+        return jsonify({"error": str(e)}), 500
+
+# @app.route('/', methods=['POST'])
+# def get_webhook():
+#     res = ''
+#     data = request.json  # Получаем данные из запроса
+#     message = json.dumps(data, indent=4, ensure_ascii=False)  # Форматируем данные в JSON-строку
+#     send_telegram_message(message, CHAT_IDS)  # Отправляем сообщение в Telegram
+#     return 'OK', 200  # Возвращаем успешный ответ
     # if request.method == 'POST':
     #     data = request.json
 
