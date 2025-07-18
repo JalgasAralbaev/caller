@@ -74,15 +74,19 @@
 
     #     return res, 200
 
+import logging
 from flask import Flask, request, jsonify
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
 @app.route('/cs2', methods=['POST'])
 def cs2_data():
     data = request.json
-    print("Данные от CS2:", data)
+    logging.info(f"[CS2] Получены данные: {data}")
     return jsonify({"status": "ok"})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
