@@ -11,6 +11,7 @@ BASE_URL = f'https://api.icafecloud.com/api/v2/cafe/{CAFE_ID}'
 @app.route('/getuser', methods=['POST'])
 def get_user():
 
+    pc_list = []
     data = request.get_json()
     ip = data.get('ip')
     url = f'{BASE_URL}/base/query'
@@ -20,10 +21,13 @@ def get_user():
     }
     response = requests.get(url, headers = headers)
     if response.ok:
-        return response.json()
-    return None
+        pc_list.append(response['data']['pcs_init']['pc_list'])
+    return jsonify(pc_list)
 
+@app.route('/check', methods=['POST'])
+def check():
+
+    return None
 
 if __name__ == '__main__':
     app.run(debug=True)
-
