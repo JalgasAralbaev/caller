@@ -32,9 +32,9 @@ def get_user():
 
     data = request.get_json()
     ip = data.get('ip')
+    coins = data.get('coins')
     url = f'{BASE_URL}/base/query'
-    user_name = None
-    user_id = None
+    
     headers = {
         "Accept": "application/json",
         "Authorization": f"Bearer {TOKEN}"
@@ -48,8 +48,7 @@ def get_user():
             if pc.get('pc_ip') == ip:
                 user_name = pc.get('member_account')
                 user_id = pc.get('member_id')
-                coins = pc.get('coins')
-                
+
                 return topup(user_id, coins, user_name)
 
     return None
