@@ -20,11 +20,12 @@ def topup(user_id, coins, user_name):
 
     response = requests.post(url, headers=headers, json=body)
     if response.ok:
-
-        return jsonify({
-            "login": user_name,
-            "coins": coins
-        })
+        json_data = response.json()
+        # return jsonify({
+        #     "login": user_name,
+        #     "coins": coins
+        # })
+        return json_data
     return None
 @app.route('/getuser', methods=['POST'])
 def get_user():
@@ -34,7 +35,7 @@ def get_user():
     ip = data.get('ip')
     coins = data.get('coins')
     url = f'{BASE_URL}/base/query'
-    
+
     headers = {
         "Accept": "application/json",
         "Authorization": f"Bearer {TOKEN}"
