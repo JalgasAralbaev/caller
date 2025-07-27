@@ -15,7 +15,8 @@ def topup(user_id, coins, user_name):
     body = {
         'topup_ids': str(user_id),
         'topup_value': 0,
-        'add_coin': coins
+        'add_coin': coins,
+        'comment': 'cs2 win coin'
     }
 
     response = requests.post(url, headers=headers, json=body)
