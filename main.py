@@ -13,7 +13,7 @@ def topup(user_id, coins, user_name):
         "Authorization": f"Bearer {TOKEN}"
     }
     body = {
-        'topup_ids': user_id,
+        'topup_ids': str(user_id),
         'topup_value': 0,
         'add_coin': coins
     }
