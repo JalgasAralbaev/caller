@@ -32,7 +32,6 @@ def topup(user_id, coins, user_name):
 def stats():
     url = f'{BASE_URL}/api/v2/cafe/81809/gameStats'
     headers = {
-        "Accept": "application/json",
         "Authorization": f"Bearer {TOKEN}"
     }
     body = {
@@ -45,7 +44,7 @@ def stats():
         "wins": 1,
         "end_time": "2025-07-28 13:14:32"
     }
-    response = requests.post(url, headers=headers)
+    response = requests.post(url, headers=headers, json=body)
     if response.ok:
         json_data = response.json()
         return json_data
