@@ -28,6 +28,29 @@ def topup(user_id, coins, user_name):
         # })
         return json_data
     return None
+@app.route('/gamestats', methods=['POST'])
+def stats():
+    url = f'{BASE_URL}/api/v2/cafe/81809/gameStats'
+    headers = {
+        "Accept": "application/json",
+        "Authorization": f"Bearer {TOKEN}"
+    }
+    body = {
+        "game": "csgo",
+        "member_id": 312075606961,
+        "mode": "Competitive Dust II",
+        "kills": 50,
+        "assists": 3,
+        "deaths": 1,
+        "wins": 1,
+        "end_time": "2025-07-28 13:14:32"
+    }
+    response = requests.post(url, headers=headers)
+    if response.ok:
+        return jsonify({
+            "ok": "ok"
+        })
+    return None
 @app.route('/getuser', methods=['POST'])
 def get_user():
 
