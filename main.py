@@ -47,9 +47,8 @@ def stats():
     }
     response = requests.post(url, headers=headers)
     if response.ok:
-        return jsonify({
-            "ok": "ok"
-        })
+        json_data = response.json()
+        return json_data
     return None
 @app.route('/getuser', methods=['POST'])
 def get_user():
