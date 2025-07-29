@@ -30,7 +30,7 @@ def topup(user_id, coins, user_name):
     return None
 @app.route('/gamestats', methods=['POST'])
 def stats():
-    url = f'{BASE_URL}/api/v2/cafe/81809/gameStats'
+    url = f'{BASE_URL}/gameStats'
     headers = {
         "Authorization": f"Bearer {TOKEN}"
     }
