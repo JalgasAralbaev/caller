@@ -8,31 +8,6 @@ TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiMjE1MzJlYm
 BASE_URL = f'https://api.icafecloud.com/api/v2/cafe/{CAFE_ID}'
 
 
-def topup(user_id, coins, user_name):
-    url = f'{BASE_URL}/members/action/topup'
-    headers = {
-        "Authorization": f"Bearer {TOKEN}"
-    }
-    body = {
-        'topup_ids': str(user_id),
-        'topup_value': 0,
-        'add_coin': coins,
-        'comment': 'cs2 win coin'
-    }
-
-    response = requests.post(url, headers=headers, json=body)
-    if response.ok:
-        json_data = response.json()
-        # return jsonify({
-        #     "login": user_name,
-        #     "coins": coins
-        # })
-        return json_data
-    return None
-
-
-
-
 @app.route('/getuser', methods=['POST'])
 def get_user():
     data = request.get_json()
@@ -52,12 +27,43 @@ def get_user():
             if pc.get('pc_ip') == ip:
                 user_name = pc.get('member_account')
                 user_id = pc.get('member_id')
-                
+
                 return jsonify({
                     'username': user_name,
                     'user_id': user_id
                 })
 
+    return None
+
+
+@app.route('/topup', methods=['POST'])
+def topup():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    coins = data.get('coins')
+    kills = data.get('kills')
+    deaths = data.get('deaths')
+    assists = data.get('assists')
+
+    url = f'{BASE_URL}/members/action/topup'
+    headers = {
+        "Authorization": f"Bearer {TOKEN}"
+    }
+    body = {
+        'topup_ids': str(user_id),
+        'topup_value': 0,
+        'add_coin': coins,
+        'comment': f'wincoin cs2({kills} kills, {deaths} deaths, {assists} assists)'
+    }
+
+    response = requests.post(url, headers=headers, json=body)
+    if response.ok:
+        json_data = response.json()
+        # return jsonify({
+        #     "login": user_name,
+        #     "coins": coins
+        # })
+        return json_data
     return None
 
 
