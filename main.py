@@ -52,7 +52,7 @@ def get_user():
             if pc.get('pc_ip') == ip:
                 user_name = pc.get('member_account')
                 user_id = pc.get('member_id')
-                return json_data
+                return pc_list
                 # return jsonify({
                 #     'username': user_name,
                 #     'user_id': user_id
