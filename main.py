@@ -8,7 +8,7 @@ TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiMjE1MzJlYm
 BASE_URL = f'https://api.icafecloud.com/api/v2/cafe/{CAFE_ID}'
 
 def calc_coins(stats):
-    for_win = 3 if pc.get('win') else -2
+    for_win = 3 if stats.get('win') else -2
     coins = (for_win +
              stats.get('assists', 0) * 0.1 +
              stats.get('kills', 0) * 0.5 -
