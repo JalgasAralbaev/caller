@@ -10,9 +10,9 @@ BASE_URL = f'https://api.icafecloud.com/api/v2/cafe/{CAFE_ID}'
 def calc_coins(stats):
     for_win = 3 if pc.get('win') else -2
     coins = (for_win +
-             pc.get('assists', 0) * 0.1 +
-             pc.get('kills', 0) * 0.5 -
-             pc.get('deaths', 0) * 0.3)
+             stats.get('assists', 0) * 0.1 +
+             stats.get('kills', 0) * 0.5 -
+             stats.get('deaths', 0) * 0.3)
     return max(0, round(coins, 1))
 
 @app.route('/getuser', methods=['POST'])
