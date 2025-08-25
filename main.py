@@ -18,7 +18,7 @@ def calc_coins(stats):
 
 
 def send_event_data(username, win, kills, deaths, assists):
-    event_id = ''
+    event_id = '018f7984-74e7-11f0-9d62-16f956cef18b'
     url = f'{BASE_URL}/events/{event_id}/addCustomRecord'
 
 
@@ -34,8 +34,8 @@ def send_event_data(username, win, kills, deaths, assists):
         'custom_assists': assists,
         'custom_deaths': deaths
     }
+    response = requests.post(url, headers=headers, json=data)
     
-
 @app.route('/getuser', methods=['POST'])
 def get_user():
     data = request.get_json()
